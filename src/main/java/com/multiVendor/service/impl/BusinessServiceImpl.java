@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import com.multiVendor.entity.Business;
 import com.multiVendor.repository.BusinessRepository;
 import com.multiVendor.service.BusinessService;
@@ -28,7 +29,7 @@ public class BusinessServiceImpl implements BusinessService{
 	}
 
 	@Override
-	public Business getById(Integer id){
+	public Business getById(Integer id) {
 		Business business = businessRepository.findById(id).get();
 		return business;
 	}

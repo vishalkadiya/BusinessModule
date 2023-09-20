@@ -9,4 +9,8 @@ public class InvalidDataException extends MultiVendorException{
 	public InvalidDataException(int code, Map<String, String> properties, String className, String transactionName){
 		super(code, properties, className, transactionName);
 	}
+
+	public InvalidDataException(int code, String className, String transactionName) {
+		super(code, className, transactionName);
+	}
 }

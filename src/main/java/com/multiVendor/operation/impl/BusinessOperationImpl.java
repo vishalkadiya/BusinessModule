@@ -1,10 +1,11 @@
 package com.multiVendor.operation.impl;
 
 import java.util.ArrayList;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import com.multiVendor.service.BusinessContactDetailsService;
 
@@ -17,7 +18,6 @@ import com.multiVendor.commonUtils.ActiveInActive;
 import com.multiVendor.commonUtils.LoggerService;
 import com.multiVendor.commonUtils.OperationName;
 import com.multiVendor.commonUtils.ResponseCode;
-import com.multiVendor.controller.impl.BusinessControllerImpl;
 import com.multiVendor.entity.Business;
 import com.multiVendor.entity.BusinessContactDetails;
 import com.multiVendor.exception.InvalidDataException;
@@ -39,9 +39,7 @@ public class BusinessOperationImpl implements BusinessOperation{
 	@Autowired
 	BusinessContactDetailsService businessContactDetails;
 	
-	Logger log
-    = Logger.getLogger(
-    		BusinessControllerImpl.class.getName());
+	private static final Logger log = LogManager.getLogger(BusinessOperationImpl.class);
 	
 	public BusinessService getService() {
 		return businessService;
@@ -122,9 +120,9 @@ public class BusinessOperationImpl implements BusinessOperation{
 				} 
 				
 				if (!CollectionUtils.isEmpty(errorProperties)) {
-					log.info( LoggerService.ERROR+ this.getClass().getSimpleName()+ OperationName.SAVE + "Invalid data");
-//					throw new InvalidDataException(ResponseCode.INVALID_FORM_DATA.getCode(), errorProperties, this.getClass().getName(),
-//							OperationName.SAVE);
+					log.error(LoggerService.ERROR+ this.getClass().getSimpleName() + " " + OperationName.SAVE + errorProperties + " Invalid data");
+					throw new InvalidDataException(ResponseCode.INVALID_CONTACT_DETAILS.getCode(), errorProperties, this.getClass().getName(),
+							OperationName.SAVE);
 				}			
 				
 				BusinessContactDetails contactDetail = new BusinessContactDetails();
@@ -161,7 +159,6 @@ public class BusinessOperationImpl implements BusinessOperation{
 		List<BusinessContactDetailsView> contactDetails = new ArrayList<BusinessContactDetailsView>();
 		
 		for(BusinessContactDetails contactDetail : model.getContactDetails()) {
-			
 
 			BusinessContactDetailsView contactDetailView = new BusinessContactDetailsView();
 			contactDetailView.setOwnerName(contactDetail.getOwnerName());
@@ -178,25 +175,27 @@ public class BusinessOperationImpl implements BusinessOperation{
 	public ResponseEntity<Object> doUpdateOperation(BusinessView businessView) throws Exception {
 		try {
 			Business model = loadModel(businessView);
-			if (model == null) {
-				log.info(ResponseCode.INTERNAL_SERVER_ERROR.getCode() + ResponseCode.INTERNAL_SERVER_ERROR.getMessage());
+			if(model == null) {
+				log.error("Company data not found");
+				throw new InvalidDataException(ResponseCode.NO_DATA_FOUND.getCode(), this.getClass().getName(),
+						OperationName.SEARCH_TABLE );
 			}
 			if(ActiveInActive.ACTIVE != model.getActivationStatus()) {
-				log.info(ResponseCode.INTERNAL_SERVER_ERROR.getCode() + ResponseCode.INTERNAL_SERVER_ERROR.getMessage());
+				log.error(ResponseCode.INTERNAL_SERVER_ERROR.getCode() + ResponseCode.INTERNAL_SERVER_ERROR.getMessage());
 			}
 //			beforeUpdate(model, businessView);
 			model = toModel(model, businessView);
 			getService().save(model);
 			afterSave(model, businessView);
 			return ResponseEntity.ok(fromModel(model));
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
+		} finally {
+			log.info(this.getClass().getSimpleName() + " " + OperationName.UPDATE + " " + com.multiVendor.commonUtils.LogMessage.REQUEST_COMPLETED + " updateCompany");
 		}
 	}
 
-	//	private void beforeUpdate(Business model, BusinessView businessView) {
-	//		model.setActivationStatus(ActiveInActive.ACTIVE);		
-	//	}
+//		private void beforeUpdate(Business model, BusinessView businessView) {
+//			model.setActivationStatus(ActiveInActive.ACTIVE);		
+//		}
 
 	private Business loadModel(BusinessView businessView) {
 		return getService().findByBusinessID(businessView);
@@ -204,15 +203,18 @@ public class BusinessOperationImpl implements BusinessOperation{
 
 	@Override
 	public ResponseEntity<Object> doInactiveOperation(Integer id) throws Exception{
+		Business model = new Business();
 		try {
-			Business model = getService().getById(id);
-			if (model == null) {
-				ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Sorry, Details not found");
+			model = getService().getById(id);
+			if(model == null) {
+				log.error("Company data not found");
+				throw new InvalidDataException(ResponseCode.NO_DATA_FOUND.getCode(), this.getClass().getName(),
+						OperationName.SEARCH_TABLE );
 			}
 			model.setActivationStatus(ActiveInActive.INACTIVE);
 			getService().save(model);
-		}  catch (Exception e) {
-			throw new Exception(e.getMessage());
+		} finally {
+			log.info(this.getClass().getSimpleName() + " " + OperationName.DELETE + " " + com.multiVendor.commonUtils.LogMessage.REQUEST_COMPLETED + " deleteCompany");
 		}
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body("User is successfully deleted");
 	}
@@ -223,7 +225,9 @@ public class BusinessOperationImpl implements BusinessOperation{
 		try {
 			model = getService().getById(id);
 			if(model == null) {
-				ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Sorry, Details not found");
+				log.error("Company data not found");
+				throw new InvalidDataException(ResponseCode.NO_DATA_FOUND.getCode(), this.getClass().getName(),
+						OperationName.SEARCH_TABLE );
 			}
 			List<BusinessContactDetails> contactDetails = new ArrayList<BusinessContactDetails>();
 			BusinessContactDetails contactDetail = new BusinessContactDetails();
@@ -231,21 +235,26 @@ public class BusinessOperationImpl implements BusinessOperation{
 			businessContactDetails.findAllContacts(contactDetail);
 			contactDetails.add(contactDetail);
 			model.setContactDetails(contactDetails);
-		} catch(Exception e) {
-			ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Sorry, Details not found");
+		} finally {
+			log.info(this.getClass().getSimpleName() + " " + OperationName.GET_OPERATION + " " + com.multiVendor.commonUtils.LogMessage.REQUEST_COMPLETED + " getCompany");
 		}
 		return ResponseEntity.ok(fromModel(model));
 	}
 
 	@Override
 	public ResponseEntity<Object> search(String companyName) throws Exception{
+		Business model = new Business();
 		try {
-			Business model = getService().findByCompanyName(companyName);
-			return ResponseEntity.ok(fromModel(model));
-		} catch(Exception e) {
-			ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Sorry, Details not found");
+			model = getService().findByCompanyName(companyName);
+			if(model == null) {
+				log.error("Company data not found");
+				throw new InvalidDataException(ResponseCode.NO_DATA_FOUND.getCode(), this.getClass().getName(),
+						OperationName.SEARCH_TABLE );
+			}
+		} finally {
+			log.info(this.getClass().getSimpleName() + " " + OperationName.SEARCH_OPERATION + " " + com.multiVendor.commonUtils.LogMessage.REQUEST_COMPLETED + " searchCompany");
 		}
-		return null;
+		return ResponseEntity.ok(fromModel(model));
 	}
 
 	@Override
@@ -343,34 +352,26 @@ public class BusinessOperationImpl implements BusinessOperation{
 	public ResponseEntity<Object> filterAtoZ() {
 		List<Business> businessList = new ArrayList<Business>();
 		List<BusinessView> businessView = new ArrayList<BusinessView>();
-		try {
-			businessList.addAll(getService().findAllAtoZ());
+		
+		businessList.addAll(getService().findAllAtoZ());
 			
-			for(Business business : businessList) {
-				businessView.add(fromModel(business));
-			}
-			
-		} catch(Exception e) {
-			log.info(ResponseCode.INTERNAL_SERVER_ERROR.getCode() + ResponseCode.INTERNAL_SERVER_ERROR.getMessage());
+		for(Business business : businessList) {
+			businessView.add(fromModel(business));
 		}
 		return ResponseEntity.ok(businessView);
-
 	}
 
 	@Override
 	public ResponseEntity<Object> filterZtoA() {
 		List<Business> businessList = new ArrayList<Business>();
 		List<BusinessView> businessView = new ArrayList<BusinessView>();
-		try {
-			businessList.addAll(getService().findAllZtoA());
+		
+		businessList.addAll(getService().findAllZtoA());
 			
-			for(Business business : businessList) {
-				businessView.add(fromModel(business));
-			}
-			
-		} catch(Exception e) {
-			log.info(ResponseCode.INTERNAL_SERVER_ERROR.getCode() + ResponseCode.INTERNAL_SERVER_ERROR.getMessage());
+		for(Business business : businessList) {
+			businessView.add(fromModel(business));			
 		}
+		
 		return ResponseEntity.ok(businessView);
 	}
 

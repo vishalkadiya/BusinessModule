@@ -4,7 +4,7 @@ import com.multiVendor.custom.CustomMessage;
 
 public enum ValidationType implements EnumType, Validator{
 	
-NOT_NULL(1,"NOT NULL"){
+	NOT_NULL(1,"NOT NULL"){
 		
 		@SuppressWarnings("deprecation")
 		@Override

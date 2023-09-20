@@ -9,10 +9,15 @@ public interface OperationName {
 	String INAPPROPRIATE = "inappropriate";
 	String DISPLAY_GRID = "Display Table";
 	String SEARCH_TABLE = "SEARCH Table";
+	String FILTER = "filter";
 	String USER_SESSION = "Fetch User Session";
 	String URL_NOT_FOUND = "Url Not Found";
 	String ANDROID_PUSH_NOTIFICATION = "Push notification";
 	String EVENT_REMINDER = "Event Reminder";
 	String MAIL_SENT = "Mail Sent";
 	String METHOD_NOT_ALLOWED = "not allowed";
+	
+	String SEARCH_OPERATION = "search operation";
+	String GET_OPERATION = "get operation";
+	
 }

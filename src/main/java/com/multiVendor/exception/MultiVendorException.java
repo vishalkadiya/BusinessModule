@@ -26,6 +26,16 @@ public class MultiVendorException extends Exception{
 		this.message=ResponseCode.fromId(code).getMessage();
 	}
 
+	public MultiVendorException(int code2, String className2, String transactionName2) {
+		super(ResponseCode.fromId(code2).getMessage());
+		this.code = code2;
+		this.properties = null;
+		this.className = className2;
+		this.transactionName = transactionName2;
+		this.identificationValue="";
+		this.message=ResponseCode.fromId(code).getMessage();	
+	}
+
 	public int getCode() {
 		return code;
 	}
