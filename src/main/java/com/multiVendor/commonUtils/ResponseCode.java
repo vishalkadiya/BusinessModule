@@ -1,16 +1,15 @@
 package com.multiVendor.commonUtils;
 
 public enum ResponseCode {
-	
-	HTTP_UNAUTHORIZED(401, "Unauthorized User"), 
+
+	HTTP_UNAUTHORIZED(401, "Unauthorized User"),
 	ALREADY_EXIST(409, "Already Exist."),
 	INVALID_FORM_DATA(1002, "Invalid Form Data."),
 	INVALID_CONTACT_DETAILS(1005, "Invalid Contact Details."),
-	SUCCESSFUL(1000, "Successful"), 
+	SUCCESSFUL(1000, "Successful"),
 	NO_DATA_FOUND(1004, "No Data Found"),
 	INTERNAL_SERVER_ERROR(500, "System is unable to process the request.");
 
-	
 	private final int code;
 	private final String message;
 
@@ -28,9 +27,9 @@ public enum ResponseCode {
 	}
 
 	/*
-	 	This methods is used to fetch Enum base on given id.
-	*/
-	
+	 * This methods is used to fetch Enum base on given id.
+	 */
+
 	public static ResponseCode fromId(int code) {
 		for (ResponseCode responseCode : values()) {
 			if (responseCode.code == code) {

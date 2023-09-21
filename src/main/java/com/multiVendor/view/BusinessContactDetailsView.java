@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.multiVendor.commonView.KeyValueView;
 
 public class BusinessContactDetailsView {
-	
+
 	private KeyValueView businessProfile;
-	
+
 	private String ownerName;
-	
+
 	private String ownerphoneNumber;
-	
+
 	private String ownerEmail;
 
 	@JsonIgnore
@@ -47,6 +47,5 @@ public class BusinessContactDetailsView {
 	public void setOwnerEmail(String ownerEmail) {
 		this.ownerEmail = ownerEmail;
 	}
-	
-	
+
 }

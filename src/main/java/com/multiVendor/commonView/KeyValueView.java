@@ -1,20 +1,20 @@
 package com.multiVendor.commonView;
 
-public class KeyValueView implements Comparable<KeyValueView>{
+public class KeyValueView implements Comparable<KeyValueView> {
 
-	private String name; 
-	
+	private String name;
+
 	private int id;
-	
+
 	public KeyValueView() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public static KeyValueView create(int id, String name) {
-	        return new KeyValueView(name, id);
+		return new KeyValueView(name, id);
 	}
-	 
+
 	public KeyValueView(String name, int id) {
 		super();
 		this.name = name;
@@ -43,7 +43,7 @@ public class KeyValueView implements Comparable<KeyValueView>{
 	}
 
 	@Override
-    public String toString() {
-        return "KeyValueView [Id=" + getId() + ", name=" + getName() + "]";
-    }
+	public String toString() {
+		return "KeyValueView [Id=" + getId() + ", name=" + getName() + "]";
+	}
 }

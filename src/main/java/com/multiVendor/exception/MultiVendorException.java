@@ -4,8 +4,8 @@ import java.util.Map;
 
 import com.multiVendor.commonUtils.ResponseCode;
 
-public class MultiVendorException extends Exception{
-	
+public class MultiVendorException extends Exception {
+
 	private static final long serialVersionUID = 3628181483553738110L;
 	private final int code;
 	private final String message;
@@ -13,17 +13,15 @@ public class MultiVendorException extends Exception{
 	private final String className;
 	private final String transactionName;
 	private final String identificationValue;
-	
-	
-	
-	public MultiVendorException(int code, Map<String, String> properties, String className, String transactionName){
+
+	public MultiVendorException(int code, Map<String, String> properties, String className, String transactionName) {
 		super(ResponseCode.fromId(code).getMessage());
 		this.code = code;
 		this.properties = properties;
 		this.className = className;
 		this.transactionName = transactionName;
-		this.identificationValue="";
-		this.message=ResponseCode.fromId(code).getMessage();
+		this.identificationValue = "";
+		this.message = ResponseCode.fromId(code).getMessage();
 	}
 
 	public MultiVendorException(int code2, String className2, String transactionName2) {
@@ -32,8 +30,8 @@ public class MultiVendorException extends Exception{
 		this.properties = null;
 		this.className = className2;
 		this.transactionName = transactionName2;
-		this.identificationValue="";
-		this.message=ResponseCode.fromId(code).getMessage();	
+		this.identificationValue = "";
+		this.message = ResponseCode.fromId(code).getMessage();
 	}
 
 	public int getCode() {
@@ -59,7 +57,5 @@ public class MultiVendorException extends Exception{
 	public String getIdentificationValue() {
 		return identificationValue;
 	}
-	
-	
-	
+
 }

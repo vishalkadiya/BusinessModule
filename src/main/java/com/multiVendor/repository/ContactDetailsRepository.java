@@ -7,9 +7,8 @@ import com.multiVendor.entity.Business;
 import com.multiVendor.entity.BusinessContactDetails;
 
 @Repository
-public interface ContactDetailsRepository extends JpaRepository<BusinessContactDetails, Integer>{
+public interface ContactDetailsRepository extends JpaRepository<BusinessContactDetails, Integer> {
 
-	
 	void findAllByBusinessProfile(Business businessProfile);
 
 	void findAllByBusinessProfile(Integer id);

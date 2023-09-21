@@ -14,74 +14,74 @@ import javax.persistence.Transient;
 import com.multiVendor.commonUtils.ActiveInActive;
 
 @Entity
-@Table(name="business_details")
+@Table(name = "business_details")
 public class Business {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column( name = "id")
+	@Column(name = "id")
 	private Integer id;
-	
+
 	@Column(name = "ACTIVATION_STATUS")
 	private Integer activationStatusID;
-	
-	@Column( name = "COMPANY_NAME", nullable = false, length = 50 )
+
+	@Column(name = "COMPANY_NAME", nullable = false, length = 50)
 	private String companyName;
-	
-	@Column( name = "ADDRESS", nullable = false, length = 500 )
+
+	@Column(name = "ADDRESS", nullable = false, length = 500)
 	private String address;
-	
-	@Column( name = "CITY", nullable = false, length = 20 )
+
+	@Column(name = "CITY", nullable = false, length = 20)
 	private String city;
-	
-	@Column( name = "STATE", nullable = false, length = 20 )
+
+	@Column(name = "STATE", nullable = false, length = 20)
 	private String state;
-	
-	@Column( name = "COUNTRY_CODE",insertable = true, nullable = false, length = 5 )
+
+	@Column(name = "COUNTRY_CODE", insertable = true, nullable = false, length = 5)
 	private String countryCode;
-	
-	@Column( name = "WEBSITE", nullable = true, length = 30 )
+
+	@Column(name = "WEBSITE", nullable = true, length = 30)
 	private String website;
-	
+
 	@Column(name = "PIN_CODE", nullable = false)
 	private String pinCode;
-	
-	@Column( name = "INDUSTRY", nullable = true, length = 150)
+
+	@Column(name = "INDUSTRY", nullable = true, length = 150)
 	private String industry;
-	
-	@Column( name = "ORGANISATION_SIZE", insertable = true, updatable = false )
+
+	@Column(name = "ORGANISATION_SIZE", insertable = true, updatable = false)
 	private Integer organisationSize;
-	
-	@Column( name = "DESCRIPTION", nullable = false, length = 500 )
+
+	@Column(name = "DESCRIPTION", nullable = false, length = 500)
 	private String description;
-	
-	@Column( name = "TYPE_OF_FIRM", insertable = true, updatable = false )
+
+	@Column(name = "TYPE_OF_FIRM", insertable = true, updatable = false)
 	private String typeOfFirm;
-	
-	@Column( name = "GST_NUMBER", nullable = true, length = 15)
+
+	@Column(name = "GST_NUMBER", nullable = true, length = 15)
 	private String gstNumber;
-	
-	@OneToMany( mappedBy = "businessProfile")
+
+	@OneToMany(mappedBy = "businessProfile")
 	private List<BusinessContactDetails> contactDetails;
-	
+
 	@Transient
 	private List<String> filterCityName;
-	
+
 	@Transient
 	private List<String> filterStateName;
-	
+
 	@Transient
 	private List<String> filterTypeOfFirm;
-	
+
 	@Transient
 	private List<String> filterIndustry;
-	
+
 	@Transient
 	private List<Integer> filterOrganisationSize;
-	
+
 	@Transient
 	private List<String> filterAtoZ;
-	
+
 	@Transient
 	private List<String> filterZtoA;
 
@@ -240,10 +240,11 @@ public class Business {
 	public void setContactDetails(List<BusinessContactDetails> contactDetails) {
 		this.contactDetails = contactDetails;
 	}
-	
+
 	public ActiveInActive getActivationStatus() {
 		return ActiveInActive.fromId(getActivationStatusID());
 	}
+
 	public void setActivationStatus(ActiveInActive activeInActive) {
 		this.activationStatusID = activeInActive.getId();
 	}
@@ -279,7 +280,7 @@ public class Business {
 	public void setFilterIndustry(List<String> filterIndustry) {
 		this.filterIndustry = filterIndustry;
 	}
-	
+
 	public List<Integer> getFilterOrganisationSize() {
 		return filterOrganisationSize;
 	}

@@ -12,11 +12,11 @@ import com.multiVendor.service.BusinessService;
 import com.multiVendor.view.BusinessView;
 
 @Service
-public class BusinessServiceImpl implements BusinessService{
+public class BusinessServiceImpl implements BusinessService {
 
 	@Autowired
 	BusinessRepository businessRepository;
-	
+
 	@Override
 	public void save(Business model) {
 		businessRepository.save(model);
@@ -24,7 +24,7 @@ public class BusinessServiceImpl implements BusinessService{
 
 	@Override
 	public Business findByBusinessID(BusinessView businessView) {
-		Business business = businessRepository.findById(businessView.getId()).get(); 
+		Business business = businessRepository.findById(businessView.getId()).get();
 		return business;
 	}
 
@@ -43,7 +43,7 @@ public class BusinessServiceImpl implements BusinessService{
 	@Override
 	public List<Business> findByCityName(Business model) {
 		List<Business> businessList = new ArrayList<Business>();
-		for(String cityName : model.getFilterCityName()) {
+		for (String cityName : model.getFilterCityName()) {
 			List<Business> results = businessRepository.findByCityContaining(cityName);
 			businessList.addAll(results);
 		}
@@ -53,7 +53,7 @@ public class BusinessServiceImpl implements BusinessService{
 	@Override
 	public List<Business> findByStateName(Business model) {
 		List<Business> businessList = new ArrayList<Business>();
-		for(String stateName : model.getFilterStateName()) {
+		for (String stateName : model.getFilterStateName()) {
 			List<Business> results = businessRepository.findByStateContaining(stateName);
 			businessList.addAll(results);
 		}
@@ -63,7 +63,7 @@ public class BusinessServiceImpl implements BusinessService{
 	@Override
 	public List<Business> findByTypeOfFirm(Business model) {
 		List<Business> businessList = new ArrayList<Business>();
-		for(String typeOfFirm : model.getFilterTypeOfFirm()) {
+		for (String typeOfFirm : model.getFilterTypeOfFirm()) {
 			List<Business> results = businessRepository.findByTypeOfFirmContaining(typeOfFirm);
 			businessList.addAll(results);
 		}
@@ -73,7 +73,7 @@ public class BusinessServiceImpl implements BusinessService{
 	@Override
 	public List<Business> findByIndustry(Business model) {
 		List<Business> businessList = new ArrayList<Business>();
-		for(String industry : model.getFilterIndustry()) {
+		for (String industry : model.getFilterIndustry()) {
 			List<Business> results = businessRepository.findByIndustryContaining(industry);
 			businessList.addAll(results);
 		}
@@ -85,7 +85,8 @@ public class BusinessServiceImpl implements BusinessService{
 		List<Business> businessList = new ArrayList<Business>();
 		Integer minimum = model.getFilterOrganisationSize().get(0);
 		Integer maximum = model.getFilterOrganisationSize().get(1);
-		List<Business> results = businessRepository.findOrganisationByGreaterThanEqualANDLessThanEqual(minimum, maximum);
+		List<Business> results = businessRepository.findOrganisationByGreaterThanEqualANDLessThanEqual(minimum,
+				maximum);
 		businessList.addAll(results);
 		return businessList;
 	}
@@ -93,15 +94,17 @@ public class BusinessServiceImpl implements BusinessService{
 	@Override
 	public List<Business> findAllAtoZ() {
 		List<Business> allBusiness = new ArrayList<Business>();
-		businessRepository.findAll(Sort.by(Sort.Direction.ASC, "companyName")).forEach(business -> allBusiness.add(business));
+		businessRepository.findAll(Sort.by(Sort.Direction.ASC, "companyName"))
+				.forEach(business -> allBusiness.add(business));
 		return allBusiness;
 	}
 
 	@Override
 	public List<Business> findAllZtoA() {
 		List<Business> allBusiness = new ArrayList<Business>();
-		businessRepository.findAll(Sort.by(Sort.Direction.DESC, "companyName")).forEach(business -> allBusiness.add(business));
+		businessRepository.findAll(Sort.by(Sort.Direction.DESC, "companyName"))
+				.forEach(business -> allBusiness.add(business));
 		return allBusiness;
 	}
-	
+
 }

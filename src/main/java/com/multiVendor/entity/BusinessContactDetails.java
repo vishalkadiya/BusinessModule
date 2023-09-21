@@ -17,40 +17,39 @@ import org.hibernate.annotations.FetchMode;
 import com.multiVendor.commonUtils.ActiveInActive;
 
 @Entity
-@Table(name="contact_details")
+@Table(name = "contact_details")
 public class BusinessContactDetails {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column( name = "id")
+	@Column(name = "id")
 	private Integer id;
-	
+
 	@Column(name = "ACTIVATION_STATUS")
 	private Integer activationStatusID;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-    @Fetch(FetchMode.SELECT)
-    @JoinColumn(name = "BUSINESS_ID",foreignKey = @ForeignKey(name = "a_business_member_contact_details"))
-    private Business businessProfile;
-    
-    @Column(name = "BUSINESS_ID", updatable = false, insertable = false)
-	private Integer businessProfileId;
-    
-    @Column( name = "OWNER_NAME", nullable = false, length = 20 )
-	private String ownerName;
-	
-	@Column( name = "OWNER_PHONE_NUMBER", nullable = true, length = 15)
-	private String ownerphoneNumber;
-	
-	@Column( name = "OWNER_EMAIL", nullable = true, length = 100)
-	private String ownerEmail;
+	@Fetch(FetchMode.SELECT)
+	@JoinColumn(name = "BUSINESS_ID", foreignKey = @ForeignKey(name = "a_business_member_contact_details"))
+	private Business businessProfile;
 
+	@Column(name = "BUSINESS_ID", updatable = false, insertable = false)
+	private Integer businessProfileId;
+
+	@Column(name = "OWNER_NAME", nullable = false, length = 20)
+	private String ownerName;
+
+	@Column(name = "OWNER_PHONE_NUMBER", nullable = true, length = 15)
+	private String ownerphoneNumber;
+
+	@Column(name = "OWNER_EMAIL", nullable = true, length = 100)
+	private String ownerEmail;
 
 	public BusinessContactDetails() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public BusinessContactDetails(Integer id, Integer activationStatusID, Business businessProfile,
 			Integer businessProfileId, String ownerName, String ownerphoneNumber, String ownerEmail) {
 		super();
@@ -118,12 +117,13 @@ public class BusinessContactDetails {
 	public void setActivationStatusID(Integer activationStatusID) {
 		this.activationStatusID = activationStatusID;
 	}
-	
+
 	public ActiveInActive getActivationStatus() {
 		return ActiveInActive.fromId(getActivationStatusID());
 	}
+
 	public void setActivationStatus(ActiveInActive activeInActive) {
 		this.activationStatusID = activeInActive.getId();
 	}
-	
+
 }

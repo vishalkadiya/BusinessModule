@@ -9,5 +9,5 @@ public interface LoggerService {
 	static final Logger EXCEPTION = Logger.getLogger("exception");
 	static final Logger PERFORMANCE = Logger.getLogger("performance");
 	static final Logger SCHEDULER = Logger.getLogger("scheduler");
-	static final String NO_IDENTIFICATION = "No Identification";	
+	static final String NO_IDENTIFICATION = "No Identification";
 }

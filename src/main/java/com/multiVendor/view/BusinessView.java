@@ -3,55 +3,54 @@ package com.multiVendor.view;
 import java.util.List;
 
 public class BusinessView {
-	
+
 	private Integer id;
-	
+
 	private String companyName;
 
 	private String address;
-	
+
 	private String city;
-	
+
 	private String state;
-	
+
 	private String countryCode;
-	
+
 	private String website;
-	
+
 	private String pinCode;
-	
+
 	private String industry;
-	
+
 	private Integer organisationSize;
-	
+
 	private String description;
-	
+
 	private String typeOfFirm;
-	
+
 	private String gstNumber;
-	
+
 	private List<BusinessContactDetailsView> contactDetails;
-	
+
 	private List<String> companyCityName;
 
 	private List<String> companyStateName;
-	
+
 	private List<String> filterTypeOfFirm;
-	
+
 	private List<String> filterIndustry;
-	
+
 	private List<String> filterOrganisationSize;
-	
+
 	private List<String> filterAtoZ;
-	
+
 	private List<String> filterZtoA;
 
-	
 	public BusinessView() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public BusinessView(Integer id, String companyName, String address, String city, String state, String countryCode,
 			String website, String pinCode, String industry, Integer organisationSize, String description,
 			String typeOfFirm, String gstNumber, List<BusinessContactDetailsView> contactDetails,
@@ -93,35 +92,35 @@ public class BusinessView {
 	public String getCompanyName() {
 		return companyName;
 	}
-	
+
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
-	
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public String getCity() {
 		return city;
 	}
-	
+
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 	public String getState() {
 		return state;
 	}
-	
+
 	public void setState(String state) {
 		this.state = state;
 	}
-	
+
 	public String getCountryCode() {
 		return countryCode;
 	}
@@ -133,43 +132,43 @@ public class BusinessView {
 	public String getWebsite() {
 		return website;
 	}
-	
+
 	public void setWebsite(String website) {
 		this.website = website;
 	}
-	
+
 	public String getPinCode() {
 		return pinCode;
 	}
-	
+
 	public void setPinCode(String pinCode) {
 		this.pinCode = pinCode;
 	}
-	
+
 	public String getIndustry() {
 		return industry;
 	}
-	
+
 	public void setIndustry(String industry) {
 		this.industry = industry;
 	}
-	
+
 	public Integer getOrganisationSize() {
 		return organisationSize;
 	}
-	
+
 	public void setOrganisationSize(Integer organisationSize) {
 		this.organisationSize = organisationSize;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
-	
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public String getTypeOfFirm() {
 		return typeOfFirm;
 	}
@@ -181,7 +180,7 @@ public class BusinessView {
 	public String getGstNumber() {
 		return gstNumber;
 	}
-	
+
 	public void setGstNumber(String gstNumber) {
 		this.gstNumber = gstNumber;
 	}

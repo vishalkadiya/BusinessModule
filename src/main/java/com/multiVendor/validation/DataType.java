@@ -1,8 +1,8 @@
 package com.multiVendor.validation;
 
-public enum DataType implements EnumType{
-	
-	INT(1, "Int") ,
+public enum DataType implements EnumType {
+
+    INT(1, "Int"),
     STRING(2, "String"),
     DATE(3, "Date"),
     FLOAT(5, "Float"),
@@ -36,10 +36,11 @@ public enum DataType implements EnumType{
     }
 
     /**
-   	 * This methods is used to fetch Enum base on given id.
-   	 * @param id enum key
-   	 * @return DataType enum
-   	 */
+     * This methods is used to fetch Enum base on given id.
+     * 
+     * @param id enum key
+     * @return DataType enum
+     */
     public static DataType getFromId(long id) {
         for (DataType fdt : DataType.values()) {
             if (fdt.id == id) {

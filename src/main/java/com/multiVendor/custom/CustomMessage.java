@@ -1,9 +1,9 @@
 package com.multiVendor.custom;
 
 public interface CustomMessage {
-	
+
 	String DATA_SAVED = "Successfully saved.";
-	
+
 	String INVALID_USERNAME_PASS = "Invalid user name or password.";
 	String FIELD_REQUIRED = "* This field is required";
 	String MAX_LENGTH = "max length is exceeding. Max length is";

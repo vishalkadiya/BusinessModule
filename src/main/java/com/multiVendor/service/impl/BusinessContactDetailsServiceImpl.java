@@ -7,8 +7,8 @@ import com.multiVendor.repository.ContactDetailsRepository;
 import com.multiVendor.service.BusinessContactDetailsService;
 
 @Service
-public class BusinessContactDetailsServiceImpl implements BusinessContactDetailsService{
-	
+public class BusinessContactDetailsServiceImpl implements BusinessContactDetailsService {
+
 	@Autowired
 	ContactDetailsRepository contactDetailsRepo;
 
@@ -21,5 +21,5 @@ public class BusinessContactDetailsServiceImpl implements BusinessContactDetails
 	public void findAllContacts(BusinessContactDetails contactDetail) {
 		contactDetailsRepo.findAllByBusinessProfile(contactDetail.getBusinessProfile());
 	}
-	
+
 }

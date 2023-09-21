@@ -2,8 +2,8 @@ package com.multiVendor.validation;
 
 import com.multiVendor.custom.CustomMessage;
 
-public enum StaticFormValidator implements EnumType {	
-	
+public enum StaticFormValidator implements EnumType {
+
 	VALIDATE_NAME(2, "VALIDATE_NAME") {
 		@Override
 		public boolean isValid(InputField inputField) {
@@ -62,7 +62,7 @@ public enum StaticFormValidator implements EnumType {
 			return false;
 		}
 	},
-	VALIDATE_MIN_MAX_REGEX(7,"VALIDATE_CONTACT_NUMBER"){
+	VALIDATE_MIN_MAX_REGEX(7, "VALIDATE_CONTACT_NUMBER") {
 		@Override
 		public boolean isValid(InputField inputField) {
 			if (ValidationType.NOT_NULL.isValid(inputField) == false
@@ -72,7 +72,7 @@ public enum StaticFormValidator implements EnumType {
 				return false;
 			}
 			return true;
-		}		
+		}
 	},
 	VALIDATE_STRING_WITHOUT_REGEX(8, "VALIDATE_STRING") {
 		@Override
@@ -97,11 +97,9 @@ public enum StaticFormValidator implements EnumType {
 		return id;
 	}
 
-
 	public String getName() {
 		return name;
 	}
-
 
 	/**
 	 * This methods is used to fetch Enum base on given id.
